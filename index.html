@@ -43,8 +43,8 @@
 
 <body>
   <section id="hero"
-    class="hero w-100 h-100 p-3 mx-auto text-center d-flex justify-content-center align-items-center text-white">
-    <main>
+    class="hero w-100 h-100 p-3 mx-auto  text-center d-flex justify-content-center align-items-center text-white">
+    <main class="heromain">
       <!-- <h4>Dear <span>Bapak/Ibu/Saudara/i, </span></h4> -->
       <h4>Dear </h4>
       <h2></h2>
@@ -52,7 +52,7 @@
       <h1>Joyful Primary Graduation</h1>
       <h3>Year of 2025</h3>
 
-      <a href="#home" class="btn btn-lg mt-4" onClick="enableScroll()">Buka Undangan</a>
+      <a href="#home" class="btn btn-lg mt-4" onClick="enableScroll()"><i class="bi bi-envelope-open"></i> Open Invitation</a>
     </main>
   </section>
 
@@ -508,6 +508,7 @@
 
   <!-- nama url  -->
   <script>
+    // const urlParams = new URLSearchParams(window.location.search);
     const urlParams = new URLSearchParams(window.location.search);
     const nama = urlParams.get("n") || "";
     // const pronoun = urlParams.get("p") || "Bapak/Ibu/Saudara/i";
