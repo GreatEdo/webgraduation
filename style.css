@@ -390,12 +390,10 @@ swiper-slide img {
 }
 
 /* icon */
-.bi-grid{
-    font-size: 3rem;
+.bi-grid, .btn-close{
+    font-size: 5rem;
 }
-.btn-close{
-    font-size: 2.5rem;
-}
+
 /* end icon */
 
 /* end swiper */
