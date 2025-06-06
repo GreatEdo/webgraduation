@@ -30,6 +30,8 @@
 
   <!--end google font -->
 
+
+
   <!-- css -->
   <link rel="stylesheet" href="style.css" />
 
@@ -52,24 +54,28 @@
       <h1>Joyful Primary Graduation</h1>
       <h3>Year of 2025</h3>
 
-      <a href="#home" class="btn btn-lg mt-4" onClick="enableScroll()"><i class="bi bi-envelope-open"></i> Open Invitation</a>
+      <a href="#home" class="btn btn-lg mt-4" onClick="enableScroll()"><i class="bi bi-envelope-open"></i> Open
+        Invitation</a>
     </main>
   </section>
 
   <!-- navbar -->
-  <nav class="navbar navbar-expand-md bg-transparent sticky-top  mynavbar">
+
+  <nav class="navbar navbar-expand-md py-4 py-l-0 shadow  bg-transparent sticky-top  mynavbar">
     <div class="container">
       <!-- <a class="navbar-brand" href="#">JP</a> -->
       <a class="navbar-brand" href="#"></a>
 
       <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <i class="bi bi-grid"></i>
       </button>
+
+
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-            JP
+            <img src="img/logosekolah.png" width="40" alt="">
           </h5>
           <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -80,7 +86,7 @@
             <a class="nav-link" href="#info">Info</a>
             <a class="nav-link" href="#story">Story</a>
             <a class="nav-link" href="#gallery">Gallery</a>
-            <a class="nav-link" href="#photos">Photos</a>
+
           </div>
         </div>
       </div>
@@ -130,7 +136,7 @@
 
 
       <!--  -->
-     
+
       <div class="headertext  text-center">Save the date</div>
       <div class="justify-content-center gap-3 d-flex">
 
@@ -160,7 +166,7 @@
             width="600" height="250" style="border: 0" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-        
+
         </div>
       </div>
       <!-- alamat -->
@@ -436,10 +442,27 @@
     });
   </script>
 
+
+  <!-- menutup offcanvas setip memilih menu nav-link -->
+  <script>
+    const offcanvasLinks = document.querySelectorAll('.offcanvas-body .nav-link');
+
+    // Tambahkan event listener ke setiap link
+    offcanvasLinks.forEach(link => {
+      link.addEventListener('click', function () {
+        // Tutup offcanvas saat link diklik
+        const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasNavbar'));
+        offcanvas.hide();
+      });
+    });
+  </script>
+  <!-- menutup offcanvas setip memilih menu nav-link -->
+
   <!-- buka tutup humberguer -->
   <script>
     const stickyTop = document.querySelector(".sticky-top");
     const offcanvas = document.querySelector(".offcanvas");
+
 
     offcanvas.addEventListener("show.bs.offcanvas", function () {
       stickyTop.style.overflow = "visible";
@@ -497,7 +520,7 @@
         iconAudio.classList.add("bi-disc");
       }
       isPlaying = !isPlaying;
-      
+
     };
 
 

@@ -389,6 +389,15 @@ swiper-slide img {
     object-fit: cover;
 }
 
+/* icon */
+.bi-grid{
+    font-size: 3rem;
+}
+.btn-close{
+    font-size: 2.5rem;
+}
+/* end icon */
+
 /* end swiper */
 
 /* responsive */
