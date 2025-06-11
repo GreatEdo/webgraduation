@@ -193,6 +193,38 @@
       </div>
       <!-- alamat -->
 
+
+      <!-- form comment-->
+      <div class="row justify-content-center mt-5 ">
+        <div class="col-md-6 col-8">
+          <div class="text-center">
+            <span>Share your happiness here!</span>
+            <h2>Drop your comment</h2>
+          </div>
+          <form id="comment-form">
+            <div class="mb-3">
+              <label for="name-input" class="form-label">Nama</label>
+              <input type="text" class="form-control shadow-none" id="name-input" name="name-input" aria-describedby="namaHelp">
+            </div>
+            <div class="mb-3">
+              <label for="comment-input" class="form-label">Comment</label>
+              <textarea class="form-control shadow-none" id="comment-input" rows="3"></textarea>
+            </div>
+            <div class="col-6">
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+          <div class="col-md-12">
+            <div id="comments-container">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end form comment -->
+
+      <!--  -->
+
     </div>
   </section>
   <!-- end info -->
@@ -388,6 +420,9 @@
   <!-- end gallery -->
 
 
+
+
+
   <!-- swiper test -->
   <section id="photos" class="photos">
     <div class="container">
@@ -446,6 +481,13 @@
     integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
     crossorigin="anonymous"></script>
 
+  <!-- firebase -->
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database-compat.js"></script>
+  <!-- end firebase -->
+
   <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.5/dist/index.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 
@@ -470,6 +512,83 @@
       },
     });
   </script>
+
+
+  <!-- comment  -->
+  <script>
+    //fire base
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzdEp2dow4S30L1HnEnYu3T-aQnZeLQs4",
+      authDomain: "comment-132f8.firebaseapp.com",
+      databaseURL: "https://comment-132f8-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "comment-132f8",
+      storageBucket: "comment-132f8.firebasestorage.app",
+      messagingSenderId: "421518856879",
+      appId: "1:421518856879:web:92dc1d9aa4eb9e8c793a5a"
+    };
+    // Initialize Firebase
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const commentsRef = database.ref('comments');
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load komentar saat pertama kali halaman dimuat
+      loadCommentsFromFirebase();
+
+      // Tangani pengiriman form komentar
+      document.getElementById('comment-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name-input').value.trim();
+        const comment = document.getElementById('comment-input').value.trim();
+
+        if (name && comment) {
+          addComment(name, comment);
+          document.getElementById('comment-form').reset();
+        }
+      });
+    });
+
+    function addComment(name, comment) {
+      // Kirim ke Firebase
+      commentsRef.push({
+        name: name,
+        comment: comment,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+      });
+    }
+
+    function loadCommentsFromFirebase() {
+      // Dapatkan data dari Firebase
+      commentsRef.orderByChild('timestamp').on('value', (snapshot) => {
+        const commentsContainer = document.getElementById('comments-container');
+        commentsContainer.innerHTML = '';
+
+        if (!snapshot.exists()) {
+          commentsContainer.innerHTML = '<p>Belum ada komentar.</p>';
+          return;
+        }
+
+        snapshot.forEach((childSnapshot) => {
+          const comment = childSnapshot.val();
+          const commentElement = document.createElement('div');
+          commentElement.className = 'comment card  border-light mb-3';
+          commentElement.innerHTML = `
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-capitalize">${comment.name}</h5>
+                    <p class="small">${new Date(comment.timestamp).toLocaleString()}</p>
+                    <p class="card-text">${comment.comment}</p>
+                   
+                </div>
+            `;
+          commentsContainer.prepend(commentElement); // Tambahkan di awal
+        });
+      });
+    }
+  </script>
+  <!--  -->
+
 
 
   <!-- menutup offcanvas setip memilih menu nav-link -->
@@ -567,6 +686,9 @@
 
     const namaOrg = document.querySelector(".hero h2");
     namaOrg.innerText = `${nama}`.replace(/ ,$/, ",");
+
+
+     document.querySelector("#name-input").value = nama;
 
   </script>
   <!-- end nama url  -->
